@@ -1,23 +1,45 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import http from "../services/httpService";
 
 function Home(props) {
+  const [data, setData] = useState([]);
+
   async function getData() {
-    const data = await http.get(
-      // "trending/movie/day?api_key=8f56203d1e18cdbbd64752b7aaaf756e"
-      `trending/movies/day?api_key=${http.api_key}`
+    const { data } = await http.get(
+      `trending/movies/week?api_key=${http.api_key}`
     );
-    console.log(data);
+    console.log(data.results[0]);
+    setData(data.results);
+  }
+
+  function getImagesURL(path) {
+    return `https://image.tmdb.org/t/p/w200/${path}`;
   }
 
   useEffect(() => {
     getData();
-  });
+    // console.log("data", data);
+  }, []);
 
   return (
-    <div>
-      <h1>Home</h1>
-    </div>
+    <Fragment>
+      <div className="container">
+        <div className="row">
+          {/* <div className="col">Movie</div> */}
+          {data.map((item) => {
+            return (
+              <div className="col" key={item.id} style={{ margin: 10 }}>
+                <img
+                  src={getImagesURL(item.poster_path)}
+                  alt={item.title}
+                  className="float-left"
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </Fragment>
   );
 }
 
