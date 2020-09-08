@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+}
+
+.container > img {
+  flex: 0 0 auto;
+  margin-right: 15px;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
+}
