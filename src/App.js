@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment, Component } from "react";
+import { Switch, Route } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Navbar from "./component/Navbar";
+import Login from "./component/Login";
+import Register from "./component/Register";
+import Movie from "./component/Movie";
+import TV from "./component/TV";
+import People from "./component/People";
+import About from "./component/About";
+import Contact from "./component/Contact";
+import Home from "./component/Home";
+
+import "./App.css";
+
+class App extends Component {
+  render() {
+    return (
+      <Fragment>
+        <Navbar />
+        <main className="container">
+          <Switch>
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+            <Route path="/movie" component={Movie} />
+            <Route path="/tv" component={TV} />
+            <Route path="/people" component={People} />
+            <Route path="/about" component={About} />
+            <Route path="/contact" component={Contact} />
+            <Route path="/" component={Home} />
+          </Switch>
+        </main>
+      </Fragment>
+    );
+  }
 }
 
 export default App;
