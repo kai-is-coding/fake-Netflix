@@ -6,13 +6,16 @@ import "../css/TrendingBox.css";
 function TrendingBox({ mediaType }) {
   // console.log("props", props);
   const [data, setData] = useState([]);
+  const [mounted, setMounted] = useState(true);
 
   async function getData() {
-    const { data } = await http.get(
-      `trending/${mediaType}/week?api_key=${http.api_key}`
-    );
-    // console.log(data.results[0]);
-    setData(data.results);
+    if (mounted) {
+      const { data } = await http.get(
+        `trending/${mediaType}/week?api_key=${http.api_key}`
+      );
+      // console.log(data.results[0]);
+      setData(data.results);
+    }
   }
 
   function getImagesURL(path) {
@@ -21,7 +24,11 @@ function TrendingBox({ mediaType }) {
 
   useEffect(() => {
     getData();
-  }, [data]);
+
+    return () => {
+      setMounted(false);
+    };
+  });
 
   return (
     <div>
