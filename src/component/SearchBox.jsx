@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import http from "../services/httpService";
 
 function SearchBox(props) {
+  const history = useHistory();
+
   const [query, setQuery] = useState("");
   const [mediaType, setMediaType] = useState("multi");
   const [page, setPage] = useState(1);
@@ -23,27 +26,25 @@ function SearchBox(props) {
       const { data } = await http.get(
         `search/${mediaType}?api_key=${http.api_key}&language=en-US&query=${query}&page=${page}&include_adult=false`
       );
-      // console.log(data);
       setTotalPages(data.total_pages);
-      setTotalResults(totalResults.concat(data.results));
+      setTotalResults((totalResults) => [...totalResults, ...data.results]);
+
       setPage(page + 1);
     }
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    // console.log("Clicked!");
     searchQuery();
   }
 
   useEffect(() => {
-    searchQuery();
-    // return console.log("total results", totalResults);
-    if (page > totalPages) {
-      return () => {
-        setQuery("");
-        console.log("total results", totalResults);
-      };
+    if (totalPages !== 0 && page <= totalPages) {
+      searchQuery();
+    } else if (totalPages !== 0 && page > totalPages) {
+      console.log("fetching data finished!");
+      console.log("total results", totalResults);
+      history.push(`/search/${mediaType}`);
     }
   }, [page]);
 

@@ -10,6 +10,7 @@ import People from "./component/People";
 import About from "./component/About";
 import Contact from "./component/Contact";
 import Home from "./component/Home";
+import SearchResults from "./component/SearchResults";
 
 import "./App.css";
 
@@ -20,6 +21,7 @@ class App extends Component {
         <Navbar />
         <main className="container">
           <Switch>
+            <Route path="/search/:media_type" component={SearchResults} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/movie" component={Movie} />
