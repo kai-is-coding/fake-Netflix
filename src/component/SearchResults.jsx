@@ -4,6 +4,7 @@ import { getImagesURL } from "../utilities/getImagesURL";
 
 import http from "../services/httpService";
 import Pagination from "./common/Pagination";
+// import ReactPaginate from "react-paginate";
 
 const SearchResults = (props) => {
   const query = props.location.state.query;
@@ -28,11 +29,11 @@ const SearchResults = (props) => {
     // return () => {
     //   console.log(results);
     // };
-  }, []);
+  }, [query, mediaType]);
 
   return (
     <Fragment>
-      <div className="container">
+      <div className="container" style={{ display: "block" }}>
         <div className="row">
           {results.map((item) => {
             return (
@@ -45,9 +46,9 @@ const SearchResults = (props) => {
             );
           })}
         </div>
+        {/* <ReactPaginate /> */}
+        <Pagination totalPages={totalPages} />
       </div>
-      {/* <Pagination totalPages={totalPages} /> */}
-      <Pagination />
     </Fragment>
   );
 };

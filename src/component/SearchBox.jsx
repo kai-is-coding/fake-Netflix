@@ -19,7 +19,7 @@ function SearchBox(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    history.push(`/search/${mediaType}`, { query, mediaType });
+    history.replace(`/search/${mediaType}`, { query, mediaType });
   }
 
   // useEffect(() => {
