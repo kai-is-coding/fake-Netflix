@@ -5,7 +5,7 @@ function Navbar(props) {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <Link to="/" className="navbar-brand">
+        <Link to={{ pathname: "/", state: true }} className="navbar-brand">
           Fake Netflix
         </Link>
         <div className="navbar-collapse">

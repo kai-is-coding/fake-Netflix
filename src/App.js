@@ -2,6 +2,8 @@ import React, { Fragment, Component } from "react";
 import { Switch, Route } from "react-router-dom";
 
 import Navbar from "./component/Navbar";
+import SearchBox from "./component/SearchBox";
+
 import Login from "./component/Login";
 import Register from "./component/Register";
 import Movie from "./component/Movie";
@@ -19,6 +21,8 @@ class App extends Component {
     return (
       <Fragment>
         <Navbar />
+        <SearchBox />
+
         <main className="container">
           <Switch>
             <Route path="/search/:media_type" component={SearchResults} />
