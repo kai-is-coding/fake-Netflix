@@ -11,12 +11,18 @@ const SearchResults = (props) => {
   const mediaType = props.location.state.mediaType;
   const [results, setResults] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
+  const [page, setPage] = useState(1);
+
+  function handlePageChange(page) {
+    console.log("page clicked!");
+    setPage(page);
+  }
 
   useEffect(() => {
     async function getData() {
       if (query) {
         const { data } = await http.get(
-          `search/${mediaType}?api_key=${http.api_key}&language=en-US&query=${query}&page=1&include_adult=false`
+          `search/${mediaType}?api_key=${http.api_key}&language=en-US&query=${query}&page=${page}&include_adult=false`
         );
         setResults(data.results);
         setTotalPages(data.total_pages);
@@ -24,7 +30,7 @@ const SearchResults = (props) => {
       }
     }
     getData();
-  }, [query, mediaType]);
+  }, [query, mediaType, page]);
 
   return (
     <Fragment>
@@ -37,12 +43,19 @@ const SearchResults = (props) => {
                 src={getImagesURL(item.poster_path)}
                 alt={item.title}
                 className="images"
+                style={{ margin: 10 }}
               />
             );
           })}
         </div>
         {/* <ReactPaginate /> */}
-        <Pagination totalPages={totalPages} />
+        {totalPages > 0 ? (
+          <Pagination
+            totalPages={totalPages}
+            handlePageChange={handlePageChange}
+            currentPage={page}
+          />
+        ) : null}
       </div>
     </Fragment>
   );
