@@ -12,23 +12,18 @@ const SearchResults = (props) => {
   const [results, setResults] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
 
-  async function getData() {
-    if (query) {
-      const { data } = await http.get(
-        `search/${mediaType}?api_key=${http.api_key}&language=en-US&query=${query}&page=1&include_adult=false`
-      );
-      setResults(data.results);
-      setTotalPages(data.total_pages);
-      // console.log(results);
-    }
-  }
-
   useEffect(() => {
+    async function getData() {
+      if (query) {
+        const { data } = await http.get(
+          `search/${mediaType}?api_key=${http.api_key}&language=en-US&query=${query}&page=1&include_adult=false`
+        );
+        setResults(data.results);
+        setTotalPages(data.total_pages);
+        // console.log(results);
+      }
+    }
     getData();
-    // console.log(results);
-    // return () => {
-    //   console.log(results);
-    // };
   }, [query, mediaType]);
 
   return (

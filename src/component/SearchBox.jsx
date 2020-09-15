@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 function SearchBox(props) {
@@ -21,10 +21,6 @@ function SearchBox(props) {
     e.preventDefault();
     history.replace(`/search/${mediaType}`, { query, mediaType });
   }
-
-  // useEffect(() => {
-  //   console.log("component mounted!");
-  // }, []);
 
   return (
     <form

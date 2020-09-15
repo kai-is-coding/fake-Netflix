@@ -1,3 +1,7 @@
 export function getImagesURL(path) {
-  return `https://image.tmdb.org/t/p/w200/${path}`;
+  try {
+    return `https://image.tmdb.org/t/p/w200/${path}`;
+  } catch (error) {
+    console.log(error);
+  }
 }
