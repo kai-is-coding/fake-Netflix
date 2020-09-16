@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from "react";
+import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
 
 import Navbar from "./component/Navbar";
@@ -19,24 +19,21 @@ import "./App.css";
 class App extends Component {
   render() {
     return (
-      <Fragment>
+      <main className="container">
         <Navbar />
         <SearchBox />
-
-        <main className="container">
-          <Switch>
-            <Route path="/search/:media_type" component={SearchResults} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-            <Route path="/movie" component={Movie} />
-            <Route path="/tv" component={TV} />
-            <Route path="/people" component={People} />
-            <Route path="/about" component={About} />
-            <Route path="/contact" component={Contact} />
-            <Route path="/" component={Home} />
-          </Switch>
-        </main>
-      </Fragment>
+        <Switch>
+          <Route path="/search/:media_type" component={SearchResults} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <Route path="/movie" component={Movie} />
+          <Route path="/tv" component={TV} />
+          <Route path="/people" component={People} />
+          <Route path="/about" component={About} />
+          <Route path="/contact" component={Contact} />
+          <Route path="/" component={Home} />
+        </Switch>
+      </main>
     );
   }
 }

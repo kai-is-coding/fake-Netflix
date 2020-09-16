@@ -1,14 +1,14 @@
-.container {
+.trendingBox {
   display: flex;
   overflow-x: auto;
   flex-wrap: nowrap;
 }
 
-.container > img {
+.trendingBox > .trendingBoxImages {
   flex: 0 0 auto;
   margin-right: 15px;
 }
 
-.container::-webkit-scrollbar {
+.trendingBox::-webkit-scrollbar {
   display: none;
 }

@@ -4,12 +4,12 @@ import { getImagesURL } from "../utilities/getImagesURL";
 
 import http from "../services/httpService";
 import Pagination from "./common/Pagination";
-// import ReactPaginate from "react-paginate";
 
 const SearchResults = (props) => {
   const query = props.location.state.query;
   const mediaType = props.location.state.mediaType;
   const [results, setResults] = useState([]);
+  const [numberOfResults, setNumberOfResults] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
 
@@ -18,14 +18,18 @@ const SearchResults = (props) => {
   }
 
   useEffect(() => {
+    setPage(1);
+  }, [query, mediaType]);
+
+  useEffect(() => {
     async function getData() {
       if (query) {
         const { data } = await http.get(
           `search/${mediaType}?api_key=${http.api_key}&language=en-US&query=${query}&page=${page}&include_adult=false`
         );
         setResults(data.results);
+        setNumberOfResults(data.total_results);
         setTotalPages(data.total_pages);
-        // console.log(results);
       }
     }
     getData();
@@ -33,7 +37,11 @@ const SearchResults = (props) => {
 
   return (
     <Fragment>
-      <div className="container" style={{ display: "block" }}>
+      <div className="searchResults">
+        <div className="row">
+          <div className="col">{numberOfResults} results found</div>
+          <div className="col">Sort by</div>
+        </div>
         <div className="row">
           {results.map((item) => {
             return (
@@ -47,14 +55,15 @@ const SearchResults = (props) => {
             );
           })}
         </div>
-        {/* <ReactPaginate /> */}
-        {totalPages > 0 ? (
-          <Pagination
-            totalPages={totalPages}
-            handlePageChange={handlePageChange}
-            currentPage={page}
-          />
-        ) : null}
+        <div className="row" style={{}}>
+          {totalPages > 0 ? (
+            <Pagination
+              totalPages={totalPages}
+              handlePageChange={handlePageChange}
+              currentPage={page}
+            />
+          ) : null}
+        </div>
       </div>
     </Fragment>
   );
