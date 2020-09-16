@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from "react";
+import _ from "lodash";
 
 function Pagination({ totalPages, handlePageChange, currentPage }) {
   const [numberOfPagination, setNumberOfPagination] = useState(8);
-  const [currentPageNumbers, setCurrentPageNumbers] = useState(1);
+  const [paginationStartNumber, setPaginationStartNumber] = useState(1);
+  // const [currentPageNumbers, setCurrentPageNumbers] = useState(1);
   const [restPage, setRestPages] = useState(totalPages);
 
   function handlePaginationDisplay() {
-    setRestPages(totalPages - numberOfPagination);
+    setPaginationStartNumber(paginationStartNumber + numberOfPagination);
+    // setRestPages(totalPages - numberOfPagination);
     // console.log("clicked!", restPage);
   }
 
   useEffect(() => {
-    if (totalPages > numberOfPagination) {
-      setCurrentPageNumbers(numberOfPagination);
+    if (totalPages < numberOfPagination) {
+      setNumberOfPagination(totalPages);
     }
   }, []);
 
@@ -36,9 +39,9 @@ function Pagination({ totalPages, handlePageChange, currentPage }) {
           <li className="page-item">
             <button className="page-link">Previous</button>
           </li>
-          {Array.from(
-            { length: currentPageNumbers },
-            (_, i) => i + 1
+          {_.range(
+            paginationStartNumber,
+            paginationStartNumber + numberOfPagination
           ).map((i) => renderPagination(i))}
           <li className="page-item">
             <button className="page-link" onClick={handlePaginationDisplay}>

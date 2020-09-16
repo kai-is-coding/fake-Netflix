@@ -14,7 +14,6 @@ const SearchResults = (props) => {
   const [page, setPage] = useState(1);
 
   function handlePageChange(page) {
-    console.log("page clicked!");
     setPage(page);
   }
 
