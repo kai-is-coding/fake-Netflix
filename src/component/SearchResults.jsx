@@ -61,6 +61,7 @@ const SearchResults = (props) => {
               totalPages={totalPages}
               handlePageChange={handlePageChange}
               currentPage={page}
+              paginationNumber={8}
             />
           ) : null}
         </div>

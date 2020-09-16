@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
 import _ from "lodash";
 
-function Pagination({ totalPages, handlePageChange, currentPage }) {
-  const [numberOfPagination, setNumberOfPagination] = useState(8);
+function Pagination({
+  totalPages,
+  handlePageChange,
+  currentPage,
+  paginationNumber,
+}) {
+  const [numberOfPagination, setNumberOfPagination] = useState(
+    paginationNumber
+  );
   const [paginationStartNumber, setPaginationStartNumber] = useState(1);
   const [restPages, setRestPages] = useState(totalPages);
 
@@ -17,38 +24,40 @@ function Pagination({ totalPages, handlePageChange, currentPage }) {
   }
 
   useEffect(() => {
+    handlePageChange(paginationStartNumber);
+  }, [paginationStartNumber]);
+
+  useEffect(() => {
     setPaginationStartNumber(1);
-    setNumberOfPagination(8);
+    setNumberOfPagination(paginationNumber);
     setRestPages(totalPages);
     if (totalPages < numberOfPagination) {
       setNumberOfPagination(totalPages);
     }
   }, [totalPages]);
 
-  function renderPagination(i) {
-    return (
-      <li
-        className={currentPage === i ? "page-item active" : "page-item"}
-        key={i}
-      >
-        <button className="page-link" onClick={() => handlePageChange(i)}>
-          {i}
-        </button>
-      </li>
-    );
+  function renderPagination() {
+    return _.range(
+      paginationStartNumber,
+      paginationStartNumber + numberOfPagination
+    ).map((i) => {
+      return (
+        <li
+          className={currentPage === i ? "page-item active" : "page-item"}
+          key={i}
+        >
+          <button className="page-link" onClick={() => handlePageChange(i)}>
+            {i}
+          </button>
+        </li>
+      );
+    });
   }
 
   function determineDisabled(target) {
-    if (currentPage === 1 && target === "previous") {
-      return "disabled";
-    } else if (
-      paginationStartNumber < numberOfPagination &&
-      target === "&laquo;"
-    ) {
+    if (paginationStartNumber < numberOfPagination && target === "&laquo;") {
       return "disabled";
     } else if (restPages <= numberOfPagination && target === "&raquo;") {
-      return "disabled";
-    } else if (currentPage === totalPages && target === "next") {
       return "disabled";
     }
   }
@@ -57,9 +66,6 @@ function Pagination({ totalPages, handlePageChange, currentPage }) {
     <div style={{ margin: "auto" }}>
       <nav aria-label="Page navigation">
         <ul className="pagination">
-          <li className={`page-item ${determineDisabled("previous")}`}>
-            <button className="page-link">Previous</button>
-          </li>
           <li className={`page-item ${determineDisabled("&laquo;")}`}>
             <button
               className="page-link"
@@ -68,11 +74,7 @@ function Pagination({ totalPages, handlePageChange, currentPage }) {
               &laquo;
             </button>
           </li>
-
-          {_.range(
-            paginationStartNumber,
-            paginationStartNumber + numberOfPagination
-          ).map((i) => renderPagination(i))}
+          {renderPagination()}
           <li className={`page-item ${determineDisabled("&raquo;")}`}>
             <button
               className="page-link"
@@ -80,9 +82,6 @@ function Pagination({ totalPages, handlePageChange, currentPage }) {
             >
               &raquo;
             </button>
-          </li>
-          <li className={`page-item ${determineDisabled("next")}`}>
-            <button className="page-link">Next</button>
           </li>
         </ul>
       </nav>
