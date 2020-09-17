@@ -4,6 +4,7 @@ import { getImagesURL } from "../utilities/getImagesURL";
 
 import http from "../services/httpService";
 import Pagination from "./common/Pagination";
+import Image from "./common/Image";
 
 const SearchResults = (props) => {
   const query = props.location.state.query;
@@ -45,12 +46,12 @@ const SearchResults = (props) => {
         <div className="row">
           {results.map((item) => {
             return (
-              <img
+              <Image
                 key={item.id}
                 src={getImagesURL(item.poster_path)}
                 alt={item.title}
                 className="images"
-                style={{ margin: 10 }}
+                style={{ margin: 10, width: 200, height: 280 }}
               />
             );
           })}
