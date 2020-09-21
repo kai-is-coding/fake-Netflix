@@ -13,6 +13,7 @@ import About from "./component/About";
 import Contact from "./component/Contact";
 import Home from "./component/Home";
 import SearchResults from "./component/SearchResults";
+import Details from "./component/Details";
 
 import "./App.css";
 
@@ -26,7 +27,9 @@ class App extends Component {
           <Route path="/search/:media_type" component={SearchResults} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route path="/movie/:id" component={Details} />
           <Route path="/movie" component={Movie} />
+          <Route path="/tv/:id" component={Details} />
           <Route path="/tv" component={TV} />
           <Route path="/people" component={People} />
           <Route path="/about" component={About} />
