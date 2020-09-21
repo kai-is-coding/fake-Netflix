@@ -5,8 +5,9 @@ function Image({ imageURL, alt, ...rest }) {
   const { src, isLoading, error } = useImage({
     srcList: [
       imageURL,
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRxMNso6QcSI03KFMAmy6MskzaaXp6eG-XxlA&usqp=CAU",
+      // "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRxMNso6QcSI03KFMAmy6MskzaaXp6eG-XxlA&usqp=CAU",
     ],
+    // imgPromise: new Promise(imageURL),
     useSuspense: false,
   });
   // console.log("loading", isLoading);
