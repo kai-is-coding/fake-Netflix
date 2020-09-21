@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment, Suspense } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 
 import { getImagesURL } from "../utilities/getImagesURL";
 
@@ -6,7 +6,7 @@ import http from "../services/httpService";
 import Pagination from "./common/Pagination";
 import Image from "./common/Image";
 
-const SearchResults = (props) => {
+function SearchResults(props) {
   const query = props.location.state.query;
   const mediaType = props.location.state.mediaType;
   const [results, setResults] = useState([]);
@@ -48,7 +48,7 @@ const SearchResults = (props) => {
             return (
               <Image
                 key={item.id}
-                src={getImagesURL(item.poster_path)}
+                imageURL={getImagesURL(item.poster_path)}
                 alt={item.title}
                 className="images"
                 style={{ margin: 10, width: 200, height: 280 }}
@@ -69,6 +69,6 @@ const SearchResults = (props) => {
       </div>
     </Fragment>
   );
-};
+}
 
 export default SearchResults;
