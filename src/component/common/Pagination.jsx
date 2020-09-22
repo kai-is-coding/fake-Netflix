@@ -23,14 +23,6 @@ function Pagination({
     }
   }
 
-  // const handlePageChangeDependency = useCallback(() => {
-  //   handlePageChange(paginationStartNumber);
-  // }, [paginationStartNumber]);
-
-  // useEffect(() => {
-  //   handlePageChangeDependency();
-  // }, [handlePageChangeDependency]);
-
   useEffect(() => {
     handlePageChange(paginationStartNumber);
   }, [paginationStartNumber]);

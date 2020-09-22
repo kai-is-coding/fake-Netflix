@@ -48,7 +48,7 @@ function SearchResults(props) {
             return (
               <img
                 key={item.id}
-                src={getImagesURL(item.poster_path)}
+                src={getImagesURL(item.poster_path || item.profile_path)}
                 alt={item.title}
                 className="images"
                 style={{ margin: 10, width: 200, height: 300 }}
