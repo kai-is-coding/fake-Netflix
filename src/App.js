@@ -27,9 +27,8 @@ class App extends Component {
           <Route path="/search/:media_type" component={SearchResults} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
-          <Route path="/movie/:id" component={Details} />
+          <Route path="/:media_type/:id" component={Details} />
           <Route path="/movie" component={Movie} />
-          <Route path="/tv/:id" component={Details} />
           <Route path="/tv" component={TV} />
           <Route path="/people" component={People} />
           <Route path="/about" component={About} />
