@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import ReactPlayer from "react-player";
+import ReactPlayer from "react-player/youtube";
 
 import http from "../services/httpService";
 import { getDataURL } from "../utilities/getDataURL";
@@ -9,28 +9,28 @@ const Details = ({ match, history }) => {
   const { pathname } = history.location;
 
   const [data, setData] = useState({});
-  const [videoLink, setVideoLink] = useState("");
+  const [videoKey, setVideoKey] = useState("");
 
   function getVideoKey({ results }) {
     const { key } = results.filter((item) =>
       item.name.includes("Official Trailer")
     )[0];
     // console.log(key);
-    setVideoLink(key);
+    setVideoKey(key);
   }
 
   const getData = useCallback(async () => {
     if (pathname.startsWith("/movie")) {
       const { data: details } = await http.get(getDataURL("movie", id));
-      const { data: videoLink } = await http.get(
+      const { data: videoKey } = await http.get(
         getDataURL("movie", id, "videos")
       );
-      console.log(details);
+      // console.log(details);
       setData(details);
-      getVideoKey(videoLink);
+      getVideoKey(videoKey);
     } else if (pathname.startsWith("/tv")) {
       const { data: details } = await http.get(getDataURL("tv", id));
-      console.log(details);
+      // console.log(details);
       setData(details);
     }
   }, [pathname, id]);
@@ -53,11 +53,12 @@ const Details = ({ match, history }) => {
         <div className="col">{runtime} mins</div>
       </div>
       <div className="row">
-        <ReactPlayer url={`https://www.youtube.com/watch?v=${videoLink}`} />
+        <ReactPlayer url={`https://www.youtube.com/watch?v=${videoKey}`} />
       </div>
       <div className="row">
         <p>{overview}</p>
       </div>
+      <div className="row">Cast</div>
     </div>
   );
 };
