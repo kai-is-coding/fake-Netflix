@@ -44,7 +44,7 @@ const Details = ({ match, history }) => {
     <div className="container">
       <div className="row">
         <div className="col">{title}</div>
-        <div className="col">Share Buttons!</div>
+        <div className="col">Share Buttons!!</div>
       </div>
       <div className="row">
         <div className="col">{status}</div>
