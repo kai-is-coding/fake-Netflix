@@ -10,6 +10,7 @@ const Details = ({ match, history }) => {
 
   const [data, setData] = useState({});
   const [videoKey, setVideoKey] = useState("");
+  const [credits, setCredits] = useState({});
 
   function getVideoKey({ results }) {
     const { key } = results.filter((item) =>
@@ -25,9 +26,11 @@ const Details = ({ match, history }) => {
       const { data: videoKey } = await http.get(
         getDataURL("movie", id, "videos")
       );
+      const {data: credits} = await http.get(getDataURL("movie", id, "credits"));
       // console.log(details);
       setData(details);
       getVideoKey(videoKey);
+      setCredits(credits);
     } else if (pathname.startsWith("/tv")) {
       const { data: details } = await http.get(getDataURL("tv", id));
       // console.log(details);
@@ -40,6 +43,7 @@ const Details = ({ match, history }) => {
   }, [getData]);
 
   const { title, status, release_date, vote_average, runtime, overview } = data;
+  const {cast, crew} = credits;
   return (
     <div className="container">
       <div className="row">
@@ -52,13 +56,14 @@ const Details = ({ match, history }) => {
         <div className="col">{vote_average}</div>
         <div className="col">{runtime} mins</div>
       </div>
-      <div className="row">
+      <div className="row" >
         <ReactPlayer url={`https://www.youtube.com/watch?v=${videoKey}`} />
       </div>
       <div className="row">
         <p>{overview}</p>
       </div>
       <div className="row">Cast</div>
+      
     </div>
   );
 };
