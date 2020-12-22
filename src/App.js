@@ -17,7 +17,13 @@ import Details from "./component/Details";
 
 import "./App.css";
 
+import { initGA, PageView } from "./component/Tracking/index";
+
 class App extends Component {
+  componentDidMount() {
+    initGA();
+    PageView();
+  }
   render() {
     return (
       <main className="container">

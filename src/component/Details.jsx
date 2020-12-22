@@ -26,11 +26,12 @@ const Details = ({ match, history }) => {
       const { data: videoKey } = await http.get(
         getDataURL("movie", id, "videos")
       );
-      const {data: credits} = await http.get(getDataURL("movie", id, "credits"));
+      const { data: credits } = await http.get(getDataURL("movie", id, "credits"));
       // console.log(details);
       setData(details);
-      getVideoKey(videoKey);
       setCredits(credits);
+      getVideoKey(videoKey);
+      // console.log(credits);
     } else if (pathname.startsWith("/tv")) {
       const { data: details } = await http.get(getDataURL("tv", id));
       // console.log(details);
@@ -42,8 +43,17 @@ const Details = ({ match, history }) => {
     getData();
   }, [getData]);
 
+  function renderCredits(job) {
+    const { cast, crew } = credits;
+    if (job === "cast" && cast) {
+      cast.map(item => {
+        return <div className="col" key={item.id}>{item.name}</div>
+      })
+    }
+
+  }
+
   const { title, status, release_date, vote_average, runtime, overview } = data;
-  const {cast, crew} = credits;
   return (
     <div className="container">
       <div className="row">
@@ -57,13 +67,18 @@ const Details = ({ match, history }) => {
         <div className="col">{runtime} mins</div>
       </div>
       <div className="row" >
-        <ReactPlayer url={`https://www.youtube.com/watch?v=${videoKey}`} />
+        <div className="col">
+          <ReactPlayer url={`https://www.youtube.com/watch?v=${videoKey}`} />
+        </div>
       </div>
       <div className="row">
-        <p>{overview}</p>
+        <div className="col"><p>{overview}</p></div>
       </div>
-      <div className="row">Cast</div>
-      
+      <div className="row">
+        Cast
+        {renderCredits("cast")}
+      </div>
+
     </div>
   );
 };

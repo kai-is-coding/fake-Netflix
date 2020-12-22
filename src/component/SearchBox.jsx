@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
+import { Event } from './Tracking/index';
+
 function SearchBox(props) {
   const history = useHistory();
 
@@ -19,6 +21,7 @@ function SearchBox(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    Event("Button", "Clicked Search Button", "Search_Page")
     history.push(`/search/${mediaType}`, { query, mediaType });
   }
 
